@@ -2,7 +2,7 @@ name: Blendedlearning
 
 on:
   pull_request:
-    branches: [ "feature/Set_up_docker" ]
+    branches: [ "main" ]
 
 jobs:
   build:
