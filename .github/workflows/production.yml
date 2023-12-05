@@ -26,7 +26,8 @@ jobs:
           context: .
           file: ./Dockerfile 
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs:latest
+          tags: nguyenphutan/backend_nestjs:latest
+#          tags: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs:latest
           target: build
 
 #  test:
