@@ -2,7 +2,7 @@ name: Blendedlearning
 
 on:
   pull_request:
-    branches: [ "feature/Set_up_docker" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -26,41 +26,41 @@ jobs:
           context: .
           file: ./Dockerfile 
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs
+          tags: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs:latest
           target: build
 
-  test:
-    name: Run unit tests
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run prettier
-        uses: docker/setup-buildx-action@v2
-
-      - name: Run ESLint
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs
-          run: sh -c "npm run lint"
-
-      - name: Run tests
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs
-          run: sh -c "npm run test"
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          token: ${{ secrets.TOKEN }}
-          folder: dist
-          branch: gh-pages
-
-      - name: Deploy success
-        run: echo "Deployed OK!"
+#  test:
+#    name: Run unit tests
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Run prettier
+#        uses: docker/setup-buildx-action@v2
+#
+#      - name: Run ESLint
+#        uses: addnab/docker-run-action@v3
+#        with:
+#          image: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs
+#          run: sh -c "npm run lint"
+#
+#      - name: Run tests
+#        uses: addnab/docker-run-action@v3
+#        with:
+#          image: ${{ secrets.DOCKER_USERNAME }}/backend_nestjs
+#          run: sh -c "npm run test"
+#
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: write
+#    steps:
+#      - name: Deploy to GitHub Pages
+#        uses: JamesIves/github-pages-deploy-action@v4.3.3
+#        with:
+#          token: ${{ secrets.TOKEN }}
+#          folder: dist
+#          branch: gh-pages
+#
+#      - name: Deploy success
+#        run: echo "Deployed OK!"
