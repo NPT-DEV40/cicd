@@ -35,19 +35,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run prettier
-        uses: docker/setup-buildx-action@v2
+        uses: addnab/docker-run-action@v3
+        with:
+          image: npt02/backend_nestjs:latest
+          run: npm run format:verify
 
       - name: Run ESLint
         uses: addnab/docker-run-action@v3
         with:
           image: npt02/backend_nestjs:latest
-          run: sh -c "npm run lint"
+          run: npm run lint
 
       - name: Run tests
         uses: addnab/docker-run-action@v3
         with:
           image: npt02/backend_nestjs:latest
-          run: sh -c "npm run test"
+          run: npm run test
 
   # deploy:
   #   needs: build
