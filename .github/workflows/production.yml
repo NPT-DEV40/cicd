@@ -26,7 +26,7 @@ jobs:
           context: .
           file: ./Dockerfile 
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/abc
+          tags: nguyenphutan/backend_nestjs:latest
           target: build
 
   test:
@@ -40,27 +40,27 @@ jobs:
       - name: Run ESLint
         uses: addnab/docker-run-action@v3
         with:
-          image: ${{ secrets.DOCKER_USERNAME }}/abc
+          image: nguyenphutan/backend_nestjs:latest
           run: sh -c "npm run lint"
 
       - name: Run tests
         uses: addnab/docker-run-action@v3
         with:
-          image: ${{ secrets.DOCKER_USERNAME }}/abc
+          image: nguyenphutan/backend_nestjs:latest
           run: sh -c "npm run test"
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          token: ${{ secrets.TOKEN }}
-          folder: dist
-          branch: gh-pages
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       uses: JamesIves/github-pages-deploy-action@v4.3.3
+  #       with:
+  #         token: ${{ secrets.TOKEN }}
+  #         folder: dist
+  #         branch: gh-pages
 
-      - name: Deploy success
-        run: echo "Deployed OK!"
+  #     - name: Deploy success
+  #       run: echo "Deployed OK!"
